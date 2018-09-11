@@ -18,12 +18,11 @@ def callback(request):
         try:
             handler.handle(body, signature)
         except InvalidSignatureError:
-            return HttpResponseForbidden()
+            return HttpResponseBadRequest()
         except LineBotApiError:
             return HttpResponseBadRequest()
+
         return HttpResponse()
-    else:
-        return HttpResponseBadRequest()
 
 OtherMessage = 'Maaf Keyword yang Anda input tidak valid'
 
