@@ -15,17 +15,17 @@ def callback(request):
     if request.method == 'POST':
         signature = request.META['HTTP_X_LINE_SIGNATURE']
         body = request.body.decode('utf-8')
-
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        return HttpResponseForbidden()
-    except LineBotApiError:
-        return HttpResponseBadRequest()
-
+        try:
+            handler.handle(body, signature)
+        except InvalidSignatureError:
+            return HttpResponseForbidden()
+        except LineBotApiError:
+            return HttpResponseBadRequest()
         return HttpResponse()
     else:
         return HttpResponseBadRequest()
+
+OtherMessage = 'Maaf Keyword yang Anda input tidak valid'
 
 def reply_message(event, reply):
     line_bot_api.reply_message(
@@ -36,8 +36,6 @@ def reply_message(event, reply):
 def handle_message(event):
     text = event.message.text
     if (text.lower() == 'hai'):
-        reply_message(event, 'Jofi Ganteng')
+        reply_message(event, 'It works')
     else:
         reply_message(event, OtherMessage)
-
-OtherMessage = 'Maaf Keyword yang Anda input tidak valid'
