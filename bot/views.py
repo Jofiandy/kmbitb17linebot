@@ -20,7 +20,7 @@ def callback(request):
         except InvalidSignatureError:
             return HttpResponseBadRequest()
         except LineBotApiError:
-            return HttpResponseBadRequest()
+            return HttpResponseForbidden()
 
         return HttpResponse()
 
