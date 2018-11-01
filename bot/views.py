@@ -24,17 +24,8 @@ def callback(request):
 
         return HttpResponse()
 
-OtherMessage = 'Maaf Keyword yang Anda input tidak valid'
-
-def reply_message(event, reply):
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=reply))
-
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    text = event.message.text
-    if (text.lower() == 'hai'):
-        reply_message(event, 'It works')
-    else:
-        reply_message(event, OtherMessage)
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=event.message.text))
